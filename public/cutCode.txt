@@ -1,0 +1,53 @@
+<div class="categories-section bg-primary">
+            <div class="container">
+                <h2 class="section-title border-0 title-decorate text-center text-white d-flex align-items-center appear-animate" data-animation-name="fadeInUpShorter">
+                    <span>BROWSE WITH CATEGORIES</span>
+                </h2>
+                <div class="owl-carousel owl-theme appear-animate show-nav-hover" data-animation-name="fadeInUpShorter" data-animation-delay="200" data-owl-options="{
+                        'dots': false,
+                        'margin': 20,
+                        'loop': false,
+                        'navText': [ '<i class=icon-left-open-big>', '<i class=icon-right-open-big>' ],
+                        'nav': true,
+                        'responsive': {
+                            '0': {
+                                'items': 2
+                            },
+                            '768': {
+                                'items': 3
+                            },
+                            '991': {
+                                'items': 4,
+                                'nav': false
+                            }
+                        }
+                    }">
+                    @foreach($categories as $category)
+                        <div class="banner banner-image">
+                            <a href="{{route('product-category', ['id' => $category->id])}}">
+                                <img src="{{asset($category->image)}}" width="120" height="110" alt="banner">
+                            </a>
+                            <div class="banner-layer banner-layer-bottom">
+                                <h3 class="text-white">{{$category->name}}</h3>
+                                <span class="text-white">{{count($category->subCategories)}}</span>
+                            </div>
+                        </div>
+                        <!-- End .banner -->
+                    @endforeach
+
+                </div>
+                <!-- End .cat-carousel -->
+            </div>
+            <!-- End .container -->
+        </div>
+        <!-- End .banners-section -->
+
+        <form action="{{route('update-cart-product', ['id' => $cartProduct->id])}}" method="post">
+                                                @csrf
+                                               <div class="input-group">
+                                                   <div class="product-single-qty">
+                                                       <input value="{{$cartProduct->quantity}}" name="qty" class="horizontal-quantity form-control" type="number">
+                                                   </div><!-- End .product-single-qty -->
+                                                   <button class="btn btn-sm btn-outline-success" type="submit">Update</button>
+                                               </div>
+                                            </form>
